@@ -55,7 +55,7 @@ public class MyArrayList {
     }
 
     public void addAll(int index, Object[] c) {
-		indexCheck(index);
+	indexCheck(index);
         if (data.length-currentIndex < c.length)
             ensureCapacity(c.length-(data.length-currentIndex));
         System.arraycopy(data,index,data,index+c.length,currentIndex-index);
