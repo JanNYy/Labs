@@ -64,6 +64,7 @@ public class MyArrayList {
     }
 
     public Object get(int index) {
+    	indexCheck(index);
         return data[index];
     }
 
