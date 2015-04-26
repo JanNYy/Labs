@@ -51,7 +51,7 @@ public class MyCollections {
             }
         }
         if (firstIndex < j)
-            quickSort(list, firstIndex, j);
+            quickSort(list,firstIndex,j);
         if (lastIndex > i)
             quickSort(list,i,lastIndex);
     }
@@ -79,12 +79,12 @@ public class MyCollections {
     private static int binarySearch (MyArrayList list, Integer key, int leftIndex, int rightIndex) {
         int centralIndex = leftIndex+(rightIndex-leftIndex)/2;
         if (leftIndex >= rightIndex)
-            return -(1 + leftIndex);
+            return -(1+leftIndex);
         if ((Integer)list.get(leftIndex) == key)
             return leftIndex;
         if ((Integer)list.get(centralIndex) == key)
         {
-            if (centralIndex == leftIndex + 1)
+            if (centralIndex == leftIndex+1)
                 return centralIndex;
             else
                 return binarySearch(list,key,leftIndex,centralIndex+1);
