@@ -42,7 +42,7 @@ public class MyLinkedList {
     private Element head;
 
     private void indexCheck (int index) throws IllegalArgumentException, LinkedListException {
-        if (index > size()+1) throw new LinkedListException("Index value is greater than the number of elements");
+        if (index > size()-1) throw new LinkedListException("Index value is greater than the number of elements");
         if (index < 0) throw new LinkedListException("Index value is less than zero");
     }
 

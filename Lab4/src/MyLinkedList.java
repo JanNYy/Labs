@@ -51,7 +51,7 @@ public class MyLinkedList {
 
     void addElement(int index, Integer element) throws LinkedListException {
         if (isEmpty()) throw new LinkedListException("Linked list is empty");
-        if (index > size()+1) throw new LinkedListException("Index value is greater than the number of elements");
+        if (index > size()-1) throw new LinkedListException("Index value is greater than the number of elements");
         if (index < 0) throw new LinkedListException("Index value is less than zero");
         Element precedingElement = head;
         int i = 0;
@@ -91,7 +91,7 @@ public class MyLinkedList {
     }
 
     Integer getElementAtIndex(int index) throws LinkedListException {
-        if (index > size()) throw new LinkedListException("Index value is greater than the number of elements");
+        if (index > size()-1) throw new LinkedListException("Index value is greater than the number of elements");
         if (index < 0) throw new LinkedListException("Index value is less than zero");
         int i = 0;
         Element indexElement = head;
@@ -120,7 +120,7 @@ public class MyLinkedList {
 
     void remove(int index) throws LinkedListException {
         if (isEmpty()) throw new LinkedListException("Linked list is empty");
-        if (index >= size()) throw new LinkedListException("Index value is greater than the number of elements");
+        if (index > size()-1) throw new LinkedListException("Index value is greater than the number of elements");
         if (index < 0) throw new LinkedListException("Index value is less than zero");
         int i = 0;
         Element precedingElement = head;
