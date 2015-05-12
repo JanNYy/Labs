@@ -2,7 +2,7 @@ package courses.labs;
 
 import java.util.Calendar;
 
-//Карточка на сезон
+//РљР°СЂС‚РѕС‡РєР° РЅР° СЃРµР·РѕРЅ
 public class CardSeason extends Card {
 
     public CardSeason(int id, Calendar startDate, Calendar lastDate) {
