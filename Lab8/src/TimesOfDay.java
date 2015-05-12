@@ -2,7 +2,7 @@ package courses.labs;
 
 import java.util.Formatter;
 
-//Диапазон часов, в которые разрешён проход
+//Р”РёР°РїР°Р·РѕРЅ С‡Р°СЃРѕРІ, РІ РєРѕС‚РѕСЂС‹Рµ СЂР°Р·СЂРµС€С‘РЅ РїСЂРѕС…РѕРґ
 public enum TimesOfDay {
 
     FirstHalf(9,0,13,0),
