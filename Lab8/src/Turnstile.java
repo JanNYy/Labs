@@ -1,14 +1,14 @@
 package courses.labs;
 
-//Òóðíèêåò
+//Ð¢ÑƒÑ€Ð½Ð¸ÐºÐµÑ‚
 public class Turnstile {
 
-    //Ñèñòåìà, ñâÿçàííàÿ ñ òóðíèêåòîì
+    //Ð¡Ð¸ÑÑ‚ÐµÐ¼Ð°, ÑÐ²ÑÐ·Ð°Ð½Ð½Ð°Ñ Ñ Ñ‚ÑƒÑ€Ð½Ð¸ÐºÐµÑ‚Ð¾Ð¼
     private CardSystem turnstileSystem;
-    //false - òóðíèêåò çàêðûò, true - îòêðûò
+    //false - Ñ‚ÑƒÑ€Ð½Ð¸ÐºÐµÑ‚ Ð·Ð°ÐºÑ€Ñ‹Ñ‚, true - Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚
     private boolean gateway = false;
 
-    //Ïðè ñîçäàíèÿ îáúåêòà "òóðíèêåò" - îí äîëæåí áûòü ñâÿçàí ñ ñèòåìîé
+    //ÐŸÑ€Ð¸ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ Ð¾Ð±ÑŠÐµÐºÑ‚Ð° "Ñ‚ÑƒÑ€Ð½Ð¸ÐºÐµÑ‚" - Ð¾Ð½ Ð´Ð¾Ð»Ð¶ÐµÐ½ Ð±Ñ‹Ñ‚ÑŒ ÑÐ²ÑÐ·Ð°Ð½ Ñ ÑÐ¸Ñ‚ÐµÐ¼Ð¾Ð¹
     public Turnstile(CardSystem system) {
         turnstileSystem = system;
     }
@@ -17,30 +17,30 @@ public class Turnstile {
         return turnstileSystem;
     }
 
-    //Äèñïëåé òóðíèêåòà
+    //Ð”Ð¸ÑÐ¿Ð»ÐµÐ¹ Ñ‚ÑƒÑ€Ð½Ð¸ÐºÐµÑ‚Ð°
     private void display(String msg) {
         System.out.println(msg);
     }
 
     private boolean isValid(Card verifiableCard) throws MyLinkedList.LinkedListException {
-        //Ïðîâåðêà íàëè÷èÿ êàðòî÷êè â ñïñèêå âñåõ âûäàííûõ
+        //ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð½Ð°Ð»Ð¸Ñ‡Ð¸Ñ ÐºÐ°Ñ€Ñ‚Ð¾Ñ‡ÐºÐ¸ Ð² ÑÐ¿ÑÐ¸ÐºÐµ Ð²ÑÐµÑ… Ð²Ñ‹Ð´Ð°Ð½Ð½Ñ‹Ñ…
         if (turnstileSystem.findListAllCards(verifiableCard) == -1) return false;
-        //Ïðîâåðêà íà÷àëüíîé è êîíå÷íîé äàòû íà êàðòî÷êå (ñòàâíåíèå ñ ñèñòåìíîé)
+        //ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð½Ð°Ñ‡Ð°Ð»ÑŒÐ½Ð¾Ð¹ Ð¸ ÐºÐ¾Ð½ÐµÑ‡Ð½Ð¾Ð¹ Ð´Ð°Ñ‚Ñ‹ Ð½Ð° ÐºÐ°Ñ€Ñ‚Ð¾Ñ‡ÐºÐµ (ÑÑ‚Ð°Ð²Ð½ÐµÐ½Ð¸Ðµ Ñ ÑÐ¸ÑÑ‚ÐµÐ¼Ð½Ð¾Ð¹)
         if (verifiableCard.dateBegin.compareTo(turnstileSystem.getSystemDate()) > 0) return false;
         if (verifiableCard.dateEnd.compareTo(turnstileSystem.getSystemDate()) < 0) return false;
-        //Ïðîâåðêà ÷àñîâ ðàáîòû
+         //ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ñ‡Ð°ÑÐ¾Ð² Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹
         if (verifiableCard.cardTimes.getHoursBegin() > turnstileSystem.getSystemDate().getTime().getHours()) return false;
         if (verifiableCard.cardTimes.getHoursBegin() == turnstileSystem.getSystemDate().getTime().getHours())
             if (verifiableCard.cardTimes.getMinutesBegin() > turnstileSystem.getSystemDate().getTime().getMinutes()) return false;
         if (verifiableCard.cardTimes.getHoursEnd() < turnstileSystem.getSystemDate().getTime().getHours()) return false;
         if (verifiableCard.cardTimes.getHoursEnd() == turnstileSystem.getSystemDate().getTime().getHours())
             if (verifiableCard.cardTimes.getMinutesEnd() < turnstileSystem.getSystemDate().getTime().getMinutes()) return false;
-        //Ïðîâåðêà äíåé ðàáîòû
+        //ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð´Ð½ÐµÐ¹ Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹
         if (verifiableCard.cardDays.getDays()[turnstileSystem.getSystemDate().getTime().getDay()] == 0) return false;
         return true;
     }
 
-    //Ïðîâåðêà êàðòî÷êè è, åñëè îíà óñïåøíà, - òóðíèêåò ïðîïóñêàåò
+    //ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° ÐºÐ°Ñ€Ñ‚Ð¾Ñ‡ÐºÐ¸ Ð¸, ÐµÑÐ»Ð¸ Ð¾Ð½Ð° ÑƒÑÐ¿ÐµÑˆÐ½Ð°, - Ñ‚ÑƒÑ€Ð½Ð¸ÐºÐµÑ‚ Ð¿Ñ€Ð¾Ð¿ÑƒÑÐºÐ°ÐµÑ‚
     public void controlPassage(Card passCard) throws MyLinkedList.LinkedListException {
         if ((isValid(passCard))&&(passCard.doPayment())) {
             display("Card ID "+passCard.getID()+": Access granted");
