@@ -4,16 +4,15 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-//Ситема, выдающая карточки. Система Singleton
-// Может выдавать карточки 3 разновидностей (на количество дней, количество поездок, сезонный абонемент) и карточки с предустановлеными значенями (например, карточка на выходные на 100 поездок)
-public class CardSystem {
+//РЎРёС‚РµРјР°, РІС‹РґР°СЋС‰Р°СЏ РєР°СЂС‚РѕС‡РєРё. РЎРёСЃС‚РµРјР° Singleton
+// РњРѕР¶РµС‚ РІС‹РґР°РІР°С‚СЊ РєР°СЂС‚РѕС‡РєРё 3 СЂР°Р·РЅРѕРІРёРґРЅРѕСЃС‚РµР№ (РЅР° РєРѕР»РёС‡РµСЃС‚РІРѕ РґРЅРµР№, РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕРµР·РґРѕРє, СЃРµР·РѕРЅРЅС‹Р№ Р°Р±РѕРЅРµРјРµРЅС‚) Рё РєР°СЂС‚РѕС‡РєРё СЃ РїСЂРµРґСѓСЃС‚Р°РЅРѕРІР»РµРЅС‹РјРё Р·РЅР°С‡РµРЅСЏРјРё (РЅР°РїСЂРёРјРµСЂ, РєР°СЂС‚РѕС‡РєР° РЅР° РІС‹С…РѕРґРЅС‹Рµ РЅР° 100 РїРѕРµР·РґРѕРє)
 
     private static CardSystem systemInstance = new CardSystem();
 
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm");
 
-    private Calendar seasonStart; //Начало сезона
-    private Calendar seasonEnd; //Конец сезона
+    private Calendar seasonStart; //РќР°С‡Р°Р»Рѕ СЃРµР·РѕРЅР°
+    private Calendar seasonEnd; //РљРѕРЅРµС† СЃРµР·РѕРЅР°
 
     {
         seasonStart = Calendar.getInstance();
@@ -31,7 +30,7 @@ public class CardSystem {
         seasonEnd.set(Calendar.SECOND,0);
     }
 
-    //Списки выданных карточек, карточек, которые прошли и не прошли проверку
+    //РЎРїРёСЃРєРё РІС‹РґР°РЅРЅС‹С… РєР°СЂС‚РѕС‡РµРє, РєР°СЂС‚РѕС‡РµРє, РєРѕС‚РѕСЂС‹Рµ РїСЂРѕС€Р»Рё Рё РЅРµ РїСЂРѕС€Р»Рё РїСЂРѕРІРµСЂРєСѓ
     private MyLinkedList listAllCards = new MyLinkedList();
     private MyLinkedList listAccessGranted = new MyLinkedList();
     private MyLinkedList listAccessDenied = new MyLinkedList();
@@ -117,17 +116,17 @@ public class CardSystem {
         if ((days == DaysOfWeek.Weekdays) && (numOfDays == NumberOfDays.OneDay) && ((date.getTime().getDay() == 6) || (date.getTime().getDay() == 0))) throw new CardSystemException("Specified period is incorrect");
     }
 
-    //Создание карточки по сроку действия
+    //РЎРѕР·РґР°РЅРёРµ РєР°СЂС‚РѕС‡РєРё РїРѕ СЃСЂРѕРєСѓ РґРµР№СЃС‚РІРёСЏ
     public Card createCard(Calendar cardBegin, NumberOfDays numOfDays, DaysOfWeek days, TimesOfDay times) throws MyLinkedList.LinkedListException, CardSystemException {
         dateCheck(cardBegin);
-        // Если нужно проверять на соответсвие дней недели карточки с количеством дней по отношению к заданной дате
+        // Р•СЃР»Рё РЅСѓР¶РЅРѕ РїСЂРѕРІРµСЂСЏС‚СЊ РЅР° СЃРѕРѕС‚РІРµС‚СЃРІРёРµ РґРЅРµР№ РЅРµРґРµР»Рё РєР°СЂС‚РѕС‡РєРё СЃ РєРѕР»РёС‡РµСЃС‚РІРѕРј РґРЅРµР№ РїРѕ РѕС‚РЅРѕС€РµРЅРёСЋ Рє Р·Р°РґР°РЅРЅРѕР№ РґР°С‚Рµ
         //checkDaysCorrectness(cardBegin,days,numOfDays);
         Card newCard = new CardDurations(globalID++,cardBegin,numOfDays,days,times);
         listAllCards.addElement(newCard);
         return newCard;
     }
 
-    //Создание карточки по количеству подъёмов
+     //РЎРѕР·РґР°РЅРёРµ РєР°СЂС‚РѕС‡РєРё РїРѕ РєРѕР»РёС‡РµСЃС‚РІСѓ РїРѕРґСЉС‘РјРѕРІ
     public Card createCard(Calendar cardBegin, DaysOfWeek days, NumberOfPasses numOfPasses) throws MyLinkedList.LinkedListException, CardSystemException {
         dateCheck(cardBegin);
         Card newCard = new CardNumberOfPasses(globalID++,cardBegin,seasonEnd,days,numOfPasses);
@@ -135,14 +134,14 @@ public class CardSystem {
         return newCard;
     }
 
-    //Создание карточки на сезон
+    //РЎРѕР·РґР°РЅРёРµ РєР°СЂС‚РѕС‡РєРё РЅР° СЃРµР·РѕРЅ
     public Card createCard() throws MyLinkedList.LinkedListException {
         Card newCard = new CardSeason(globalID++,seasonStart,seasonEnd);
         listAllCards.addElement(newCard);
         return newCard;
     }
 
-    //Создание стандартных видов карточек
+    //РЎРѕР·РґР°РЅРёРµ СЃС‚Р°РЅРґР°СЂС‚РЅС‹С… РІРёРґРѕРІ РєР°СЂС‚РѕС‡РµРє
     public Card createStandardCard(CardTypes typeOfCard, Calendar cardBegin) throws MyLinkedList.LinkedListException, CardSystemException {
         switch (typeOfCard) {
             case WeekdayFrom9To13: return createCard(cardBegin,NumberOfDays.OneDay,DaysOfWeek.Weekdays,TimesOfDay.FirstHalf);
