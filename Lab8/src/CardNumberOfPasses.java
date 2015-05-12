@@ -2,7 +2,7 @@ package courses.labs;
 
 import java.util.Calendar;
 
-//Карточка на количество поездок
+//РљР°СЂС‚РѕС‡РєР° РЅР° РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕРµР·РґРѕРє
 public class CardNumberOfPasses extends Card {
 
     public int cardPasses;
