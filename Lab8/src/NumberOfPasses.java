@@ -1,6 +1,6 @@
 package courses.labs;
 
-//Количество проходов
+//РљРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРѕС…РѕРґРѕРІ
 public enum NumberOfPasses {
 
     TenTimes(10),
