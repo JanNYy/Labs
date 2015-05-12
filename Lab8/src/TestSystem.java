@@ -7,7 +7,7 @@ public class TestSystem {
 
     public static void main(String[] args) throws MyLinkedList.LinkedListException, CardSystemException {
 
-        //Демонстрация работы
+        //Р”РµРјРѕРЅСЃС‚СЂР°С†РёСЏ СЂР°Р±РѕС‚С‹
 
         CardSystem mySystem = CardSystem.getSystemInstance();
         Turnstile turnstile2 = new Turnstile(mySystem);
