@@ -3,7 +3,7 @@ package courses.labs;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-//Общий вид карточек
+//РћР±С‰РёР№ РІРёРґ РєР°СЂС‚РѕС‡РµРє
 public abstract class Card {
 
     protected int cardID;
@@ -16,7 +16,7 @@ public abstract class Card {
         return cardID;
     }
 
-    //Определяет действия при необходимости платежа, уменьшения количества поездок и т.д.
+    //РћРїСЂРµРґРµР»СЏРµС‚ РґРµР№СЃС‚РІРёСЏ РїСЂРё РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё РїР»Р°С‚РµР¶Р°, СѓРјРµРЅСЊС€РµРЅРёСЏ РєРѕР»РёС‡РµСЃС‚РІР° РїРѕРµР·РґРѕРє Рё С‚.Рґ.
     protected abstract boolean doPayment();
 
     public boolean equals(Object o) {
