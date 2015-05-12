@@ -2,7 +2,7 @@ package courses.labs;
 
 import java.util.Calendar;
 
-//Карточка на срок действия
+//РљР°СЂС‚РѕС‡РєР° РЅР° СЃСЂРѕРє РґРµР№СЃС‚РІРёСЏ
 public class CardDurations extends Card {
 
     //public TimesOfDay cardTimes;
