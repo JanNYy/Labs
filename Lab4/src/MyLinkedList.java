@@ -2,7 +2,7 @@ package courses.labs;
 
 public class MyLinkedList {
 
-    public class Element {
+    private class Element {
 
         private Integer elValue;
         private Element next;
@@ -41,41 +41,58 @@ public class MyLinkedList {
 
     private Element head;
 
-    boolean isEmpty() {
+    private void indexCheck (int index) throws IllegalArgumentException, LinkedListException {
+        if (index > size()-1) throw new LinkedListException("Index value is greater than the number of elements");
+        if (index < 0) throw new LinkedListException("Index value is less than zero");
+    }
+
+    private void elementCheck(Integer element) throws LinkedListException {
+        if (element == null) throw new LinkedListException("Element is null");
+    }
+
+    private void listCheck() throws LinkedListException {
+        if (isEmpty()) throw new LinkedListException("Linked list is empty");
+    }
+
+    public boolean isEmpty() {
         return head == null;
     }
 
-    void addElement(Integer element) throws LinkedListException {
+    public void addElement(Integer element) throws LinkedListException {
         addLast(element);
     }
 
-    void addElement(int index, Integer element) throws LinkedListException {
-        if (isEmpty()) throw new LinkedListException("Linked list is empty");
-        if (index > size()-1) throw new LinkedListException("Index value is greater than the number of elements");
-        if (index < 0) throw new LinkedListException("Index value is less than zero");
-        Element precedingElement = head;
-        int i = 0;
-        while ((precedingElement.hasNext()) && (i < index-1))
+    public void addElement(int index, Integer element) throws LinkedListException {
+        listCheck();
+        elementCheck(element);
+        indexCheck(index);
+        if (index == 0) addFirst(element);
+        else
         {
-            precedingElement = precedingElement.getNext();
-            i +=1;
+            Element precedingElement = head;
+            int i = 0;
+            while ((precedingElement.hasNext()) && (i < index-1))
+            {
+                precedingElement = precedingElement.getNext();
+                i +=1;
+            }
+            Element newElement = new Element();
+            newElement.setElement(element);
+            newElement.setNext(precedingElement.getNext());
+            precedingElement.setNext(newElement);
         }
-        Element newElement = new Element();
-        newElement.setElement(element);
-        newElement.setNext(precedingElement.getNext());
-        precedingElement.setNext(newElement);
     }
 
-    void addFirst(Integer element) throws LinkedListException {
-        if (element == null) throw new LinkedListException("New element is null");
+    public void addFirst(Integer element) throws LinkedListException {
+        elementCheck(element);
         Element newElement = new Element();
         newElement.setElement(element);
         newElement.setNext(head);
         head = newElement;
     }
 
-    void addLast(Integer element) throws LinkedListException {
-        if (element == null) throw new LinkedListException("New element is null");
+    public void addLast(Integer element) throws LinkedListException {
+        elementCheck(element);
         if (isEmpty()) addFirst(element);
         else
         {
@@ -90,9 +107,8 @@ public class MyLinkedList {
         }
     }
 
-    Integer getElementAtIndex(int index) throws LinkedListException {
-        if (index > size()-1) throw new LinkedListException("Index value is greater than the number of elements");
-        if (index < 0) throw new LinkedListException("Index value is less than zero");
+    public Integer getElementAtIndex(int index) throws LinkedListException {
+        indexCheck(index);
         int i = 0;
         Element indexElement = head;
         while (i < index)
@@ -103,13 +119,13 @@ public class MyLinkedList {
         return indexElement.getElement();
     }
 
-    Integer getFirst() throws LinkedListException {
-        if (isEmpty()) throw new LinkedListException("Linked list is empty");
+    public Integer getFirst() throws LinkedListException {
+        listCheck();
         return head.getElement();
     }
 
-    Integer getLast() throws LinkedListException {
-        if (isEmpty()) throw new LinkedListException("Linked list is empty");
+    public Integer getLast() throws LinkedListException {
+        listCheck();
         Element lastElement = head;
         while (lastElement.hasNext())
         {
@@ -118,10 +134,9 @@ public class MyLinkedList {
         return lastElement.getElement();
     }
 
-    void remove(int index) throws LinkedListException {
-        if (isEmpty()) throw new LinkedListException("Linked list is empty");
-        if (index > size()-1) throw new LinkedListException("Index value is greater than the number of elements");
-        if (index < 0) throw new LinkedListException("Index value is less than zero");
+    public void remove(int index) throws LinkedListException {
+        listCheck();
+        indexCheck(index);
         int i = 0;
         Element precedingElement = head;
         while (i < index-1)
@@ -133,13 +148,13 @@ public class MyLinkedList {
         else precedingElement.setNext((precedingElement.getNext()).getNext());
     }
 
-    void removeFirst() throws LinkedListException {
-        if (isEmpty()) throw new LinkedListException("Linked list is empty");
+    public void removeFirst() throws LinkedListException {
+        listCheck();
         head = head.getNext();
     }
 
-    void removeLast() throws LinkedListException {
-        if (isEmpty()) throw new LinkedListException("Linked list is empty");
+    public void removeLast() throws LinkedListException {
+        listCheck();
         if (size() == 1) head = null;
         else
         {
@@ -154,14 +169,13 @@ public class MyLinkedList {
         }
     }
 
-    void setElement(int index, Integer element) throws LinkedListException {
-        if (element == null) throw new LinkedListException("New element is null");
-        if (isEmpty()) throw new LinkedListException("Linked list is empty");
-        if (index > size()-1) throw new LinkedListException("Index value is greater than the last index in list");
-        if (index < 0) throw new LinkedListException("Index value is less than zero");
+    public void setElement(int index, Integer element) throws LinkedListException {
+        elementCheck(element);
+        listCheck();
+        indexCheck(index);
         int i = 0;
         Element indexElement = head;
-        while ((i <= index) && (indexElement.hasNext()))
+        while ((i < index) && (indexElement.hasNext()))
         {
             indexElement = indexElement.getNext();
             i += 1;
@@ -169,8 +183,8 @@ public class MyLinkedList {
         indexElement.setElement(element);
     }
 
-    int size() throws LinkedListException {
-        if (isEmpty()) throw new LinkedListException("Linked list is empty");
+    public int size() throws LinkedListException {
+        listCheck();
         int listSize = 1;
         Element lastElement = head;
         while (lastElement.hasNext())
@@ -181,9 +195,9 @@ public class MyLinkedList {
         return listSize;
     }
 
-    int indexOf(Integer element) throws LinkedListException {
-        if (element == null) throw new LinkedListException("Required element is null");
-        if (isEmpty()) throw new LinkedListException("Linked list is empty");
+    public int indexOf(Integer element) throws LinkedListException {
+        elementCheck(element);
+        listCheck();
         Element indexElement = head;
         int i = 0;
         while (i<size())
@@ -195,8 +209,8 @@ public class MyLinkedList {
         return -1;
     }
 
-    void printList() throws LinkedListException {
-        if (isEmpty()) throw new LinkedListException("Linked list is empty");
+    public void printList() throws LinkedListException {
+        listCheck();
         Element currentElement = head;
         while (currentElement.hasNext())
         {
