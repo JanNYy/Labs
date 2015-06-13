@@ -2,6 +2,7 @@ package courses.labs;
 
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 //Visualization
 //http://www.cs.usfca.edu/~galles/visualization/RedBlack.html
@@ -540,21 +541,37 @@ public class MyTreeMap<K extends Comparable,V> implements MyMap<K,V> {
 
     @Override
     public Iterator entryIterator() {
+
         class EntryIterator implements Iterator {
+
+            SimpleEntry<K,V> next;
+            SimpleEntry<K,V> current;
+
+            EntryIterator() {
+                next = getLowestSimpleEntry();
+            }
 
             @Override
             public boolean hasNext() {
-                return false;
+                return next != null;
             }
 
             @Override
             public Object next() {
-                return null;
+                SimpleEntry<K,V> entry = next;
+                if (entry == null)
+                    throw new NoSuchElementException();
+                next = getSuccessor(entry);
+                return current = entry;
             }
 
             @Override
             public void remove() {
-
+                if (current == null)
+                    throw new IllegalStateException();
+                K k = current.key;
+                current = null;
+                MyTreeMap.this.remove(k);
             }
         }
 

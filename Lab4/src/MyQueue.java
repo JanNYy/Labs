@@ -4,9 +4,17 @@ class MyQueue {
 
     private MyLinkedList.Element firstPos;
     private MyLinkedList.Element lastPos;
+	
+	private void elementCheck(Object element) throws LinkedListException {
+        if (element == null) throw new MyLinkedList.LinkedListException("Element is null");
+    }
+	
+	private void queueCheck() throws LinkedListException {
+        if (firstPos == null) throw new MyLinkedList.LinkedListException("Queue is empty");
+    }
 
-    void offer(Integer element) throws MyLinkedList.LinkedListException {
-        if (element == null) throw new MyLinkedList.LinkedListException("New element is null");
+    public void offer(Integer element) throws MyLinkedList.LinkedListException {
+        elementCheck(element);
         MyLinkedList.Element newElement = new MyLinkedList().new Element();
         newElement.setElement(element);
         if (firstPos == null)
@@ -21,13 +29,13 @@ class MyQueue {
         }
     }
 
-    Integer peek() throws MyLinkedList.LinkedListException {
-        if (firstPos == null) throw new MyLinkedList.LinkedListException("Queue is empty");
+    public Integer peek() throws MyLinkedList.LinkedListException {
+        queueCheck();
         return firstPos.getElement();
     }
 
     Integer poll() throws MyLinkedList.LinkedListException {
-        if (firstPos == null) throw new MyLinkedList.LinkedListException("Queue is empty");
+        queueCheck();
         MyLinkedList.Element removedElement = firstPos;
         if (firstPos != lastPos)
             firstPos = firstPos.getNext();
@@ -39,8 +47,8 @@ class MyQueue {
         return removedElement.getElement();
     }
 
-    void printQueue() throws MyLinkedList.LinkedListException {
-        if (firstPos == null) throw new MyLinkedList.LinkedListException("Queue is empty");
+    public void printQueue() throws MyLinkedList.LinkedListException {
+        queueCheck();
         MyLinkedList.Element currentElement = firstPos;
         while (currentElement.hasNext())
         {

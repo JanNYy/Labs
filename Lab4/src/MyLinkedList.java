@@ -46,12 +46,12 @@ public class MyLinkedList {
         if (index < 0) throw new LinkedListException("Index value is less than zero");
     }
 
-    private void elementCheck(Integer element) throws LinkedListException {
+    private void elementCheck(Object element) throws LinkedListException {
         if (element == null) throw new LinkedListException("Element is null");
     }
 
     private void listCheck() throws LinkedListException {
-        if (isEmpty()) throw new LinkedListException("Linked list is empty");
+        if (isEmpty()) throw new LinkedListException("List is empty");
     }
 
     public boolean isEmpty() {
@@ -59,6 +59,7 @@ public class MyLinkedList {
     }
 
     public void addElement(Integer element) throws LinkedListException {
+        elementCheck(element);
         addLast(element);
     }
 
@@ -66,21 +67,17 @@ public class MyLinkedList {
         listCheck();
         elementCheck(element);
         indexCheck(index);
-        if (index == 0) addFirst(element);
-        else
+        Element precedingElement = head;
+        int i = 0;
+        while ((precedingElement.hasNext()) && (i < index-1))
         {
-            Element precedingElement = head;
-            int i = 0;
-            while ((precedingElement.hasNext()) && (i < index-1))
-            {
-                precedingElement = precedingElement.getNext();
-                i +=1;
-            }
-            Element newElement = new Element();
-            newElement.setElement(element);
-            newElement.setNext(precedingElement.getNext());
-            precedingElement.setNext(newElement);
+            precedingElement = precedingElement.getNext();
+            i +=1;
         }
+        Element newElement = new Element();
+        newElement.setElement(element);
+        newElement.setNext(precedingElement.getNext());
+        precedingElement.setNext(newElement);
     }
 
     public void addFirst(Integer element) throws LinkedListException {
@@ -170,12 +167,12 @@ public class MyLinkedList {
     }
 
     public void setElement(int index, Integer element) throws LinkedListException {
-        elementCheck(element);
         listCheck();
+        elementCheck(element);
         indexCheck(index);
         int i = 0;
         Element indexElement = head;
-        while ((i < index) && (indexElement.hasNext()))
+        while ((i <= index) && (indexElement.hasNext()))
         {
             indexElement = indexElement.getNext();
             i += 1;
