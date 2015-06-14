@@ -35,10 +35,10 @@ public class FinderSimpleThread implements Runnable {
     @Override
     public void run() {
         System.out.println("Thread "+threadID+" is running");
-        printSimple(from,to);
+        printSimple();
     }
 
-    private void printSimple(int numFrom, int numTo) {
+    private void printSimple() {
         for (int i = from; i <= to; i++)
         {
             if (isSimple(i))
