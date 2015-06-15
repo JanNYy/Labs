@@ -4,9 +4,6 @@ public class Lab11Runner {
 
     static final int threadsNum = 5;
 
-    static final int start = 0;
-    static final int end = 20;
-
     public static void main(String[] args) throws InterruptedException {
 
         Thread[] threads = new Thread[threadsNum];
@@ -16,7 +13,7 @@ public class Lab11Runner {
 
         for (int i = 0; i < threadsNum; i++)
         {
-            threads[i] = new Thread(new FinderSimpleThread(start,end));
+            threads[i] = new Thread(new FinderSimpleThread(0,20));
             threads[i].start();
         }
         while (j < threadsNum)
