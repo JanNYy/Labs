@@ -1,6 +1,5 @@
 package courses.labs;
 
-import java.awt.*;
 import java.util.Arrays;
 
 public class MergeSortThread implements Runnable {
