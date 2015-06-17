@@ -1,7 +1,5 @@
 package courses.labs;
 
-import java.util.Arrays;
-
 public class MergeSortThread implements Runnable {
 
     private static int counterID;
