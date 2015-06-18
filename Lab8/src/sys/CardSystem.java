@@ -146,7 +146,7 @@ public class CardSystem {
     public Card createCard(Calendar cardBegin, TypeCardDurations type) throws MyLinkedList.LinkedListException, CardSystemException {
         dateCheck(cardBegin);
         // Если нужно проверять на соответсвие дней недели карточки с количеством дней по отношению к заданной дате
-        //checkDaysCorrectness(cardBegin,days,numOfDays);
+        //checkDaysCorrectness(cardBegin,type.getDays(),type.getDaysNumber());
         Card newCard = new CardDurations(globalID++,cardBegin,type);
         listAllCards.addElement(newCard);
         return newCard;
