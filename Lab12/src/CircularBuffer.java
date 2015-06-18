@@ -1,7 +1,5 @@
 package courses.labs;
 
-import java.util.Arrays;
-
 public class CircularBuffer {
 
     private final int bufferSize;
