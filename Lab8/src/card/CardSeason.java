@@ -1,4 +1,8 @@
-package courses.labs;
+package courses.labs.card;
+
+import courses.labs.sys.CardSystem;
+import courses.labs.type.DaysOfWeek;
+import courses.labs.type.TimesOfDay;
 
 import java.util.Calendar;
 
@@ -21,12 +25,8 @@ public class CardSeason extends Card {
         dateEnd.set(Calendar.SECOND,0);
     }
 
-    public boolean doPayment() {
-        return true;
-    }
-
     public String toString() {
-        return "ID: "+cardID+". Card for a season from "+CardSystem.dateFormat.format(dateBegin.getTime())+ " to "+CardSystem.dateFormat.format(dateEnd.getTime());
+        return "ID: "+cardID+". Card for a season from "+ dateFormat.format(dateBegin.getTime())+ " to "+dateFormat.format(dateEnd.getTime());
     }
 
 

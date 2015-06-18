@@ -1,4 +1,4 @@
-package courses.labs;
+package courses.labs.type;
 
 //Дни недели, в которые разрешен или запрещён проход
 public enum DaysOfWeek {
@@ -10,7 +10,7 @@ public enum DaysOfWeek {
 
     private int[] days;
 
-    private DaysOfWeek(int[] workDays) {
+    DaysOfWeek(int[] workDays) {
         days = workDays;
     }
 

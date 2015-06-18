@@ -1,4 +1,11 @@
-package courses.labs;
+package courses.labs.sys;
+
+import courses.labs.card.Card;
+import courses.labs.sys.CardSystem;
+import courses.labs.sys.MyLinkedList;
+import sun.util.calendar.Gregorian;
+
+import java.util.GregorianCalendar;
 
 //Турникет
 public class Turnstile {
@@ -24,19 +31,22 @@ public class Turnstile {
 
     private boolean isValid(Card verifiableCard) throws MyLinkedList.LinkedListException {
         //Проверка наличия карточки в спсике всех выданных
-        if (turnstileSystem.findListAllCards(verifiableCard) == -1) return false;
+        if (!turnstileSystem.isCardInListAllCards(verifiableCard)) return false;
+
         //Проверка начальной и конечной даты на карточке (ставнение с системной)
-        if (verifiableCard.dateBegin.compareTo(turnstileSystem.getSystemDate()) > 0) return false;
-        if (verifiableCard.dateEnd.compareTo(turnstileSystem.getSystemDate()) < 0) return false;
-         //Проверка часов работы
-        if (verifiableCard.cardTimes.getHoursBegin() > turnstileSystem.getSystemDate().getTime().getHours()) return false;
-        if (verifiableCard.cardTimes.getHoursBegin() == turnstileSystem.getSystemDate().getTime().getHours())
-            if (verifiableCard.cardTimes.getMinutesBegin() > turnstileSystem.getSystemDate().getTime().getMinutes()) return false;
-        if (verifiableCard.cardTimes.getHoursEnd() < turnstileSystem.getSystemDate().getTime().getHours()) return false;
-        if (verifiableCard.cardTimes.getHoursEnd() == turnstileSystem.getSystemDate().getTime().getHours())
-            if (verifiableCard.cardTimes.getMinutesEnd() < turnstileSystem.getSystemDate().getTime().getMinutes()) return false;
+        if (verifiableCard.getDateBegin().compareTo(turnstileSystem.getSystemDate()) > 0) return false;
+        if (verifiableCard.getDateEnd().compareTo(turnstileSystem.getSystemDate()) < 0) return false;
+
+        //Проверка часов работы
+        if (verifiableCard.getCardTimes().getHoursBegin() > turnstileSystem.getSystemDate().getTime().getHours()) return false;
+        if (verifiableCard.getCardTimes().getHoursBegin() == turnstileSystem.getSystemDate().getTime().getHours())
+            if (verifiableCard.getCardTimes().getMinutesBegin() > turnstileSystem.getSystemDate().getTime().getMinutes()) return false;
+        if (verifiableCard.getCardTimes().getHoursEnd() < turnstileSystem.getSystemDate().getTime().getHours()) return false;
+        if (verifiableCard.getCardTimes().getHoursEnd() == turnstileSystem.getSystemDate().getTime().getHours())
+            if (verifiableCard.getCardTimes().getMinutesEnd() < turnstileSystem.getSystemDate().getTime().getMinutes()) return false;
+
         //Проверка дней работы
-        if (verifiableCard.cardDays.getDays()[turnstileSystem.getSystemDate().getTime().getDay()] == 0) return false;
+        if (verifiableCard.getCardDays().getDays()[turnstileSystem.getSystemDate().getTime().getDay()] == 0) return false;
         return true;
     }
 

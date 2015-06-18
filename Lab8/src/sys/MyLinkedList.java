@@ -1,4 +1,4 @@
-package courses.labs;
+package courses.labs.sys;
 
 public class MyLinkedList {
 

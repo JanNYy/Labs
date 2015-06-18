@@ -1,11 +1,17 @@
 package courses.labs;
 
+import courses.labs.card.Card;
+import courses.labs.sys.CardSystem;
+import courses.labs.sys.MyLinkedList;
+import courses.labs.sys.Turnstile;
+import courses.labs.type.TypeCardDurations;
+import courses.labs.type.TypeCardNumberOfPasses;
+
 import java.util.Calendar;
 import java.util.Random;
 
 public class TestSystem {
-
-    public static void main(String[] args) throws MyLinkedList.LinkedListException, CardSystemException {
+    public static void main(String[] args) throws MyLinkedList.LinkedListException, CardSystem.CardSystemException {
 
         //Демонстрация работы
 
@@ -19,13 +25,32 @@ public class TestSystem {
         int numCards = 50;
         Card[] userCards = new Card[numCards];
         int cardType;
-        for (int i = 0; i < numCards; i++) {
-            cardType = random.nextInt(CardTypes.values().length);
-            userCards[i] = mySystem.createStandardCard(CardTypes.values()[cardType], c);
+        for (int i = 0; i < numCards; i++)
+        {
+            cardType = random.nextInt(3);
+            switch (cardType)
+            {
+                case 0:
+                {
+                    //Создать карточку на срок действия
+                    cardType = random.nextInt(TypeCardDurations.values().length);
+                    userCards[i] = mySystem.createCard(c,TypeCardDurations.values()[cardType]);
+                    break;
+                }
+                case 1:
+                {
+                    //Создать карточку на количество поездок
+                    cardType = random.nextInt(TypeCardNumberOfPasses.values().length);
+                    userCards[i] = mySystem.createCard(TypeCardNumberOfPasses.values()[cardType]);
+                    break;
+                }
+                case 2:
+                {
+                    //Создать карточку на сезон
+                    userCards[i] = mySystem.createCard();
+                }
+            }
         }
-
-        Card newCard1 = mySystem.createCard(c, DaysOfWeek.Weekdays, NumberOfPasses.TwentyTimes);
-        Card newCard2 = mySystem.createCard();
 
         System.out.println("All cards:");
         turnstile2.getTurnstileSystem().printListAllCards();
@@ -34,8 +59,6 @@ public class TestSystem {
         System.out.println("All cards pass through the turnstile:");
         for (int i = 0; i < userCards.length; i++)
             turnstile2.controlPassage(userCards[i]);
-        turnstile2.controlPassage(newCard1);
-        turnstile2.controlPassage(newCard2);
         System.out.println();
 
         System.out.println("Cards with Access Granted:");

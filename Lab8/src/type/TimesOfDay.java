@@ -1,4 +1,4 @@
-package courses.labs;
+package courses.labs.type;
 
 import java.util.Formatter;
 
@@ -14,7 +14,7 @@ public enum TimesOfDay {
     private int hoursEnd;
     private int minutesEnd;
 
-    private TimesOfDay(int hB, int mB, int hE, int mE) {
+    TimesOfDay(int hB, int mB, int hE, int mE) {
         hoursBegin = hB;
         minutesBegin = mB;
         hoursEnd = hE;

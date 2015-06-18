@@ -1,10 +1,15 @@
-package courses.labs;
+package courses.labs.card;
+
+import courses.labs.type.DaysOfWeek;
+import courses.labs.type.TimesOfDay;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 //Общий вид карточек
 public abstract class Card {
+
+    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm");
 
     protected int cardID;
     protected Calendar dateBegin;
@@ -16,8 +21,26 @@ public abstract class Card {
         return cardID;
     }
 
+    public Calendar getDateBegin() {
+        return dateBegin;
+    }
+
+    public Calendar getDateEnd() {
+        return dateEnd;
+    }
+
+    public TimesOfDay getCardTimes() {
+        return cardTimes;
+    }
+
+    public DaysOfWeek getCardDays() {
+        return cardDays;
+    }
+
     //Определяет действия при необходимости платежа, уменьшения количества поездок и т.д.
-    protected abstract boolean doPayment();
+    public boolean doPayment() {
+        return true;
+    }
 
     public boolean equals(Object o) {
         if (this == o) return true;

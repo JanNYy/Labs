@@ -1,4 +1,13 @@
-package courses.labs;
+package courses.labs.sys;
+
+import courses.labs.type.NumberOfDays;
+import courses.labs.card.Card;
+import courses.labs.card.CardDurations;
+import courses.labs.card.CardNumberOfPasses;
+import courses.labs.card.CardSeason;
+import courses.labs.type.DaysOfWeek;
+import courses.labs.type.TypeCardDurations;
+import courses.labs.type.TypeCardNumberOfPasses;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -6,6 +15,19 @@ import java.util.Date;
 
 //Ситема, выдающая карточки. Система Singleton
 // Может выдавать карточки 3 разновидностей (на количество дней, количество поездок, сезонный абонемент) и карточки с предустановлеными значенями (например, карточка на выходные на 100 поездок)
+public class CardSystem {
+
+    public static class CardSystemException extends Exception{
+
+        public CardSystemException(String message) {
+            super(message);
+        }
+
+        public CardSystemException() {
+
+        }
+
+    }
 
     private static CardSystem systemInstance = new CardSystem();
 
@@ -79,6 +101,10 @@ import java.util.Date;
         return listAllCards.indexOf(requiredCard);
     }
 
+    public boolean isCardInListAllCards(Card requiredCard) throws MyLinkedList.LinkedListException {
+        return findListAllCards(requiredCard) != -1;
+    }
+
     public void printListAccessGranted() throws MyLinkedList.LinkedListException {
         listAccessGranted.printList();
     }
@@ -117,19 +143,18 @@ import java.util.Date;
     }
 
     //Создание карточки по сроку действия
-    public Card createCard(Calendar cardBegin, NumberOfDays numOfDays, DaysOfWeek days, TimesOfDay times) throws MyLinkedList.LinkedListException, CardSystemException {
+    public Card createCard(Calendar cardBegin, TypeCardDurations type) throws MyLinkedList.LinkedListException, CardSystemException {
         dateCheck(cardBegin);
         // Если нужно проверять на соответсвие дней недели карточки с количеством дней по отношению к заданной дате
         //checkDaysCorrectness(cardBegin,days,numOfDays);
-        Card newCard = new CardDurations(globalID++,cardBegin,numOfDays,days,times);
+        Card newCard = new CardDurations(globalID++,cardBegin,type);
         listAllCards.addElement(newCard);
         return newCard;
     }
 
-     //Создание карточки по количеству подъёмов
-    public Card createCard(Calendar cardBegin, DaysOfWeek days, NumberOfPasses numOfPasses) throws MyLinkedList.LinkedListException, CardSystemException {
-        dateCheck(cardBegin);
-        Card newCard = new CardNumberOfPasses(globalID++,cardBegin,seasonEnd,days,numOfPasses);
+    //Создание карточки по количеству поездок
+    public Card createCard(TypeCardNumberOfPasses type) throws MyLinkedList.LinkedListException, CardSystemException {
+        Card newCard = new CardNumberOfPasses(globalID++,seasonStart,seasonEnd,type);
         listAllCards.addElement(newCard);
         return newCard;
     }
@@ -139,31 +164,6 @@ import java.util.Date;
         Card newCard = new CardSeason(globalID++,seasonStart,seasonEnd);
         listAllCards.addElement(newCard);
         return newCard;
-    }
-
-    //Создание стандартных видов карточек
-    public Card createStandardCard(CardTypes typeOfCard, Calendar cardBegin) throws MyLinkedList.LinkedListException, CardSystemException {
-        switch (typeOfCard) {
-            case WeekdayFrom9To13: return createCard(cardBegin,NumberOfDays.OneDay,DaysOfWeek.Weekdays,TimesOfDay.FirstHalf);
-            case WeekdayFrom13To17: return createCard(cardBegin,NumberOfDays.OneDay,DaysOfWeek.Weekdays,TimesOfDay.SecondHalf);
-            case Weekday1Day: return createCard(cardBegin,NumberOfDays.OneDay,DaysOfWeek.Weekdays,TimesOfDay.AllDay);
-            case Weekday2Days: return createCard(cardBegin,NumberOfDays.TwoDays,DaysOfWeek.Weekdays,TimesOfDay.AllDay);
-            case Weekday5Days: return createCard(cardBegin,NumberOfDays.FiveDays,DaysOfWeek.Weekdays,TimesOfDay.AllDay);
-            case Weekday10Passes: return createCard(cardBegin,DaysOfWeek.Weekdays,NumberOfPasses.TenTimes);
-            case Weekday20Passes: return createCard(cardBegin,DaysOfWeek.Weekdays,NumberOfPasses.TwentyTimes);
-            case Weekday50Passes: return createCard(cardBegin,DaysOfWeek.Weekdays,NumberOfPasses.FiftyTimes);
-            case Weekday100Passes: return createCard(cardBegin,DaysOfWeek.Weekdays,NumberOfPasses.OneHundredTimes);
-            case WeekendFrom9To13: return createCard(cardBegin,NumberOfDays.OneDay,DaysOfWeek.Weekends,TimesOfDay.FirstHalf);
-            case WeekendFrom13To17: return createCard(cardBegin,NumberOfDays.OneDay,DaysOfWeek.Weekends,TimesOfDay.SecondHalf);
-            case Weekend1Day: return createCard(cardBegin,NumberOfDays.OneDay,DaysOfWeek.Weekends,TimesOfDay.AllDay);
-            case Weekend2Days: return createCard(cardBegin,NumberOfDays.TwoDays,DaysOfWeek.Weekends,TimesOfDay.AllDay);
-            case Weekend10Passes: return createCard(cardBegin,DaysOfWeek.Weekends,NumberOfPasses.TenTimes);
-            case Weekend20Passes: return createCard(cardBegin,DaysOfWeek.Weekends,NumberOfPasses.TwentyTimes);
-            case Weekend50Passes: return createCard(cardBegin,DaysOfWeek.Weekends,NumberOfPasses.FiftyTimes);
-            case Weekend100Passes: return createCard(cardBegin,DaysOfWeek.Weekends,NumberOfPasses.OneHundredTimes);
-            case SeasonPass: return createCard();
-            default: throw new IllegalArgumentException();
-        }
     }
 
 }

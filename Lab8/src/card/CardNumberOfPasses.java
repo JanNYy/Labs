@@ -1,4 +1,7 @@
-package courses.labs;
+package courses.labs.card;
+
+import courses.labs.type.TimesOfDay;
+import courses.labs.type.TypeCardNumberOfPasses;
 
 import java.util.Calendar;
 
@@ -7,11 +10,11 @@ public class CardNumberOfPasses extends Card {
 
     public int cardPasses;
 
-    public CardNumberOfPasses(int id, Calendar startDate, Calendar lastDate, DaysOfWeek daysPasses, NumberOfPasses numPasses) {
+    public CardNumberOfPasses(int id, Calendar startDate, Calendar lastDate, TypeCardNumberOfPasses type) {
         cardID = id;
         cardTimes = TimesOfDay.AllDay;
-        cardDays = daysPasses;
-        cardPasses = numPasses.getNumberOfPasses();
+        cardDays = type.getDays();
+        cardPasses = type.getPasses().getNumberOfPasses();
         dateBegin = Calendar.getInstance();
         dateBegin = (Calendar)startDate.clone();
         dateBegin.set(Calendar.HOUR_OF_DAY,cardTimes.getHoursBegin());
@@ -33,7 +36,7 @@ public class CardNumberOfPasses extends Card {
     }
 
     public String toString() {
-        return "ID: "+cardID+". Card from "+CardSystem.dateFormat.format(dateBegin.getTime())+" to "+CardSystem.dateFormat.format(dateEnd.getTime())+ " for "+ cardPasses + " passes on "+cardDays;
+        return "ID: "+cardID+". Card from "+ dateFormat.format(dateBegin.getTime())+" to "+dateFormat.format(dateEnd.getTime())+ " for "+ cardPasses + " passes on "+cardDays;
     }
 
 }

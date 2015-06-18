@@ -1,6 +1,6 @@
-package courses.labs;
+package courses.labs.type;
 
-//РљРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРѕС…РѕРґРѕРІ
+//Количество проходов
 public enum NumberOfPasses {
 
     TenTimes(10),
@@ -10,7 +10,7 @@ public enum NumberOfPasses {
 
     private int number;
 
-    private NumberOfPasses(int numOfPasses) {
+    NumberOfPasses(int numOfPasses) {
         number = numOfPasses;
     }
 

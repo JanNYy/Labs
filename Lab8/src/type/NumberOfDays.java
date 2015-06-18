@@ -1,6 +1,6 @@
-package courses.labs;
+package courses.labs.type;
 
-//РљРѕР»РёС‡РµСЃС‚РІРѕ РґРЅРµР№ РґРµР№СЃС‚РІРёСЏ РєР°СЂС‚РѕС‡РєРё
+//Количество дней действия карточки
 public enum NumberOfDays {
 
     OneDay(1),
@@ -9,7 +9,7 @@ public enum NumberOfDays {
 
     private int numOfDays;
 
-    private NumberOfDays(int number) {
+    NumberOfDays(int number) {
         numOfDays = number;
     }
 
